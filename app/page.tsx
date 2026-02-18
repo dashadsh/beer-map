@@ -4,8 +4,8 @@ export default function Home() {
   return (
     <main>
       <div className="p-8 pb-4">
-        <h1 className="text-3xl font-bold">Beer Map</h1>
-        <p className="text-gray-500 mt-2">Discover the best craft beer spots near you</p>
+        <h1 className="text-3xl font-bold">HopTrotter</h1>
+        <p className="text-gray-500 mt-2">Your trail to the perfect pint</p>
       </div>
       <Map />
     </main>

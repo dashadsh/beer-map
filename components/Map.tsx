@@ -15,7 +15,7 @@ export default function Map() {
     map.current = new mapboxgl.Map({
       container: mapContainer.current!,
     //   style: 'mapbox://styles/mapbox/streets-v12',
-		style: 'mapbox://styles/mapbox/navigation-night-v1',
+		style: 'mapbox://styles/mapbox/light-v11',
       center: [13.405, 52.52],
       zoom: 12
     })
