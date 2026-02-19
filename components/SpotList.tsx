@@ -98,13 +98,13 @@ export default function SpotList({ spots, onSpotClick }: Props) {
             className={`${btnBase} ${drinkTypeFilter === 'craft_beer' ? 'bg-[#e07b39] text-white border-transparent' : btnInactive}`}
             onClick={() => setDrinkTypeFilter('craft_beer')}
           >
-            🍺 Beer
+            Beer
           </button>
           <button
             className={`${btnBase} ${drinkTypeFilter === 'natural_wine' ? 'bg-[#8b2246] text-white border-transparent' : btnInactive}`}
             onClick={() => setDrinkTypeFilter('natural_wine')}
           >
-            🍷 Wine
+            Wine
           </button>
         </div>
 
