@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { Spot } from '@/lib/spots'
 
 type DrinkFilter = 'all' | 'craft_beer' | 'natural_wine'
@@ -30,10 +30,18 @@ export default function SpotList({
   onDistrictFilterChange,
   onSpotClick,
 }: Props) {
+  const [sortOrder, setSortOrder] = useState<SortOrder>('asc')
+
   const districts = useMemo(() => {
     const unique = Array.from(new Set(allSpots.map(s => s.neighborhood).filter(Boolean)))
     return unique.sort()
   }, [allSpots])
+
+  const sorted = useMemo(() => {
+    return [...spots].sort((a, b) =>
+      sortOrder === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
+    )
+  }, [spots, sortOrder])
 
   const btnBase = 'px-3 py-1.5 rounded-full text-sm font-medium transition-colors cursor-pointer'
   const btnInactive = 'bg-white text-stone-600 border border-stone-300 hover:border-amber-800 hover:text-amber-800'
@@ -41,6 +49,24 @@ export default function SpotList({
   return (
     <div className="px-8 pb-10">
       <div className="flex flex-wrap items-center gap-3 mb-6 pt-2">
+
+        {/* Sort */}
+        <div className="flex items-center gap-1.5 mr-2">
+          <button
+            className={`${btnBase} ${sortOrder === 'asc' ? 'bg-amber-800 text-white' : btnInactive}`}
+            onClick={() => setSortOrder('asc')}
+          >
+            A → Z
+          </button>
+          <button
+            className={`${btnBase} ${sortOrder === 'desc' ? 'bg-amber-800 text-white' : btnInactive}`}
+            onClick={() => setSortOrder('desc')}
+          >
+            Z → A
+          </button>
+        </div>
+
+        <div className="w-px h-6 bg-stone-200" />
 
         {/* Drink type filter */}
         <div className="flex items-center gap-1.5">
@@ -81,11 +107,11 @@ export default function SpotList({
         </span>
       </div>
 
-      {spots.length === 0 ? (
+      {sorted.length === 0 ? (
         <p className="text-stone-400 text-sm py-8 text-center">No spots match your filters.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {spots.map(spot => (
+          {sorted.map(spot => (
             <div
               key={spot.id}
               onClick={() => onSpotClick(spot.id, spot.lng, spot.lat)}
