@@ -1,13 +1,10 @@
 export default function Header() {
   return (
-    <header className="bg-amber-800 text-white px-8 py-4 flex items-center justify-between">
-      <div>
-        <span className="text-xl font-bold">HopTrotter</span>
-        {/* <span className="text-gray-400 text-sm ml-3">Find your perfect pint</span> */}
-      </div>
-      <nav className="text-sm text-amber-200">
-        <span>Discover craft beer & natural wine near you</span>
-      </nav>
+    <header className="bg-amber-800 text-white px-6 py-3 flex items-center justify-between gap-4">
+      <span className="text-xl font-bold shrink-0">HopTrotter</span>
+      <span className="text-sm text-amber-200 text-right hidden sm:block">
+        Discover craft beer & natural wine near you
+      </span>
     </header>
   )
 }

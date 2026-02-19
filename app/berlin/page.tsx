@@ -37,9 +37,11 @@ export default function BerlinPage() {
   return (
     <main>
       <Header />
-      <div className="px-8 py-6">
-        <h1 className="text-4xl font-bold">Berlin</h1>
-        <p className="text-gray-500 mt-1">Your local guide · {filteredSpots.length} spots</p>
+      <div className="px-6 py-3 sm:px-8 sm:py-6">
+        <h1 className="text-3xl sm:text-4xl font-bold">Berlin</h1>
+        <p className="text-gray-500 mt-0.5 text-sm sm:text-base">
+          Your local guide · {filteredSpots.length} spots
+        </p>
       </div>
       <Map ref={mapRef} spots={filteredSpots} />
       <SpotList
