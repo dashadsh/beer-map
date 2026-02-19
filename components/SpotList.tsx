@@ -1,17 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-
-interface Spot {
-  id: number
-  name: string
-  address: string
-  neighborhood: string
-  lng: number
-  lat: number
-  types: string[]
-  drink_type: 'craft_beer' | 'natural_wine'
-}
+import { Spot } from '@/lib/spots'
 
 type DrinkFilter = 'all' | 'craft_beer' | 'natural_wine'
 type SortOrder = 'asc' | 'desc'
@@ -21,7 +11,7 @@ interface Props {
   spots: Spot[]
   drinkFilter: DrinkFilter
   onDrinkFilterChange: (filter: DrinkFilter) => void
-  onSpotClick: (id: number, lng: number, lat: number) => void
+  onSpotClick: (id: string, lng: number, lat: number) => void
 }
 
 export default function SpotList({ spots, drinkFilter, onDrinkFilterChange, onSpotClick }: Props) {
