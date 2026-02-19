@@ -11,11 +11,14 @@ import { Spot } from '@/lib/spots'
 const Map = dynamic(() => import('@/components/Map'), { ssr: false })
 
 type DrinkFilter = 'all' | 'craft_beer' | 'natural_wine'
+type TypeFilter = 'all' | 'bar' | 'shop'
 
 export default function BerlinPage() {
   const mapRef = useRef<MapHandle>(null)
   const [spots, setSpots] = useState<Spot[]>([])
   const [drinkFilter, setDrinkFilter] = useState<DrinkFilter>('all')
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>('all')
+  const [districtFilter, setDistrictFilter] = useState<string>('all')
 
   useEffect(() => {
     supabase.from('spots').select('*').then(({ data }) => {
@@ -24,9 +27,12 @@ export default function BerlinPage() {
   }, [])
 
   const filteredSpots = useMemo(() => {
-    if (drinkFilter === 'all') return spots
-    return spots.filter(s => s.drink_type === drinkFilter)
-  }, [spots, drinkFilter])
+    let result = [...spots]
+    if (drinkFilter !== 'all') result = result.filter(s => s.drink_type === drinkFilter)
+    if (typeFilter !== 'all') result = result.filter(s => s.types?.includes(typeFilter))
+    if (districtFilter !== 'all') result = result.filter(s => s.neighborhood === districtFilter)
+    return result
+  }, [spots, drinkFilter, typeFilter, districtFilter])
 
   return (
     <main>
@@ -38,8 +44,13 @@ export default function BerlinPage() {
       <Map ref={mapRef} spots={filteredSpots} />
       <SpotList
         spots={filteredSpots}
+        allSpots={spots}
         drinkFilter={drinkFilter}
+        typeFilter={typeFilter}
+        districtFilter={districtFilter}
         onDrinkFilterChange={setDrinkFilter}
+        onTypeFilterChange={setTypeFilter}
+        onDistrictFilterChange={setDistrictFilter}
         onSpotClick={(id, lng, lat) => mapRef.current?.openSpot(id, lng, lat)}
       />
     </main>
