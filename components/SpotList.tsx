@@ -88,7 +88,7 @@ export default function SpotList({ spots, onSpotClick }: Props) {
               className={`${btnBase} ${typeFilter === t ? btnActive : btnInactive}`}
               onClick={() => setTypeFilter(t)}
             >
-              {t === 'all' ? 'All' : t === 'bar' ? '🍺 Bar' : '🛍 Shop'}
+              {t === 'all' ? 'All' : t === 'bar' ? 'Bar' : 'Shop'}
             </button>
           ))}
         </div>
